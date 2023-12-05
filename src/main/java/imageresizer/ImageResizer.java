@@ -74,7 +74,7 @@ public class ImageResizer {
         output.setRequired(true);
         options.addOption(output);
 
-        options.addOption( "imgscalar",false,"Optional parameter: use image scalar library to compress. By default - use primitive algorithm ");
+        options.addOption( "imgscalr",false,"Optional parameter: use image scalar library to compress. By default - use primitive algorithm ");
 
         CommandLineParser parser = new DefaultParser();
         HelpFormatter formatter = new HelpFormatter();
@@ -84,7 +84,7 @@ public class ImageResizer {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
             System.out.println(e.getMessage());
-            formatter.printHelp(" java -jar ImageResizer.jar -i <InputImageFolder> -o <OutputImageFolder> -imgscalar <Optional> ", options);
+            formatter.printHelp(" java -jar ImageResizer.jar -i <InputImageFolder> -o <OutputImageFolder> -imgscalr <Optional>", options);
             System.exit(1);
         }
 
@@ -92,7 +92,7 @@ public class ImageResizer {
         String outputFolderName = cmd.getOptionValue("output");
 
         boolean useImgScalarLibrary = false;
-        if(cmd.hasOption("imgscalar")) {
+        if(cmd.hasOption("imgscalr")) {
             useImgScalarLibrary = true;
         }
 
