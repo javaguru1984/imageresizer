@@ -92,6 +92,7 @@ public class ImageResizer {
         String outputFolderName = cmd.getOptionValue("output");
 
         boolean useImgScalarLibrary = false;
+
         if(cmd.hasOption("imgscalr")) {
             useImgScalarLibrary = true;
         }
@@ -113,9 +114,16 @@ public class ImageResizer {
         PhotoStorage[] storages = getFileStorages(allPhotos);
         ExecutorService exec = Executors.newFixedThreadPool(ImageResizer.coresNum);
 
+        AbstractPhotoSliceCompressor compressor = null;
+
         long start = System.currentTimeMillis();
         for (PhotoStorage storage : storages) {
-            PhotoSliceCompressor compressor = new PhotoSliceCompressor(storage, outputFolderName, useImgScalarLibrary);
+            if (useImgScalarLibrary) {
+                compressor = new ImageScalarCompressor(storage, outputFolderName);
+            }
+            else {
+                compressor = new PrimitiveImageCompressor(storage, outputFolderName);
+            }
             exec.execute(compressor);
         }
         exec.shutdown();
