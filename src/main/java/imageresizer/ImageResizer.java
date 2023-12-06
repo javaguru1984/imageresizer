@@ -93,9 +93,7 @@ public class ImageResizer {
 
         boolean useImgScalarLibrary = false;
 
-        if(cmd.hasOption("imgscalr")) {
-            useImgScalarLibrary = true;
-        }
+        if(cmd.hasOption("imgscalr")) useImgScalarLibrary = true;
 
         Path path = Paths.get(inputFolderName);
         if (Files.notExists(path)) {
@@ -105,16 +103,26 @@ public class ImageResizer {
 
         path = Paths.get(outputFolderName);
         if (Files.notExists(path)) {
-            new File(outputFolderName).mkdirs();
+            if ( !new File(outputFolderName).mkdirs()){
+                System.out.println("Can not create new folder: " + outputFolderName);
+                System.out.println("Exit from program");
+                System.exit(1);
+            }
         }
 
         File srcDir = new File(inputFolderName);
         File[] allPhotos = srcDir.listFiles();
 
+        if (allPhotos == null) {
+            System.out.println("Photo list in folder " + inputFolderName + " is empty");
+            System.out.println("Exit from program");
+            System.exit(1);
+        }
+
         PhotoStorage[] storages = getFileStorages(allPhotos);
         ExecutorService exec = Executors.newFixedThreadPool(ImageResizer.coresNum);
 
-        AbstractPhotoSliceCompressor compressor = null;
+        AbstractPhotoSliceCompressor compressor;
 
         long start = System.currentTimeMillis();
         for (PhotoStorage storage : storages) {
