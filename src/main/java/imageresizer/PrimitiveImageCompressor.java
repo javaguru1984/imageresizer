@@ -15,7 +15,7 @@ public class PrimitiveImageCompressor extends AbstractPhotoSliceCompressor {
     @Override
     public void compressPictures() {
         for (File sourceFile : storage.getStorage()) {
-            Path path = (Path) Paths.get(outDir, sourceFile.getName());
+            Path path = Paths.get(outDir, sourceFile.getName());
             String targetFilePath = path.toString();
             System.out.println("Primitive compression method, compressed file --> " + targetFilePath);
 

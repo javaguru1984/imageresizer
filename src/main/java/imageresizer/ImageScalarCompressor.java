@@ -16,10 +16,10 @@ public class ImageScalarCompressor extends AbstractPhotoSliceCompressor{
 
     @Override
     public void compressPictures() {
-        int targetSize = 300;
+        int targetSize = 4272;
 
         for (File sourceFile : storage.getStorage()) {
-            Path path = (Path)Paths.get(outDir, sourceFile.getName());
+            Path path = Paths.get(outDir, sourceFile.getName());
             String targetFilePath = path.toString();
             System.out.println("Image scalar compression method, compressed file --> " + targetFilePath);
 

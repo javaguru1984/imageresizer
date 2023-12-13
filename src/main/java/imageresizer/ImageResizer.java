@@ -118,7 +118,7 @@ public class ImageResizer {
             System.out.println("Exit from program");
             System.exit(1);
         }
-
+        System.out.println(srcDir.getAbsolutePath());
         PhotoStorage[] storages = getFileStorages(allPhotos);
         ExecutorService exec = Executors.newFixedThreadPool(ImageResizer.coresNum);
 
@@ -142,6 +142,7 @@ public class ImageResizer {
 
             String executionReport = getTimeExecutionReport(millis);
             System.out.println(executionReport);
+            System.out.println(allPhotos.length + " file(s) were compressed\n");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
