@@ -2,6 +2,7 @@
 
 Image resizing program. 
 
+
 Realize 2 algorithms of compression: a) primitive pixel shrink algorithm, b) based on library `imgscalr` algorithm 
 
 # Notice
